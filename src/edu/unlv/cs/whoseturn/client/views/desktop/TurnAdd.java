@@ -6,7 +6,6 @@ import java.util.List;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.Widget;
@@ -95,10 +94,12 @@ public class TurnAdd extends AbstractNavigationView implements NavigationView {
 		lblNoCategoriesFound.setVisible(false);
 
 		categoryService.getAllCategories(new AsyncCallback<List<String>>() {
+			@Override
 			public void onFailure(Throwable caught) {
 				// TODO
 			}
 
+			@Override
 			public void onSuccess(List<String> results) {
 				if (results.size() >= 1) {
 					for (int i = 0; i < results.size(); i++)
@@ -118,10 +119,12 @@ public class TurnAdd extends AbstractNavigationView implements NavigationView {
 		final List<ToggleButton> toggleButtonList = new ArrayList<ToggleButton>();
 
 		usersService.findUsers(new AsyncCallback<List<String[]>>() {
+			@Override
 			public void onFailure(Throwable caught) {
 				// TODO
 			}
 
+			@Override
 			public void onSuccess(List<String[]> result) {
 				ToggleButton tempToggle;
 				Integer horizontalCounter = 1;
@@ -152,6 +155,7 @@ public class TurnAdd extends AbstractNavigationView implements NavigationView {
 		final List<String> usernameList = new ArrayList<String>();
 		
 		btnFindDriver.addClickHandler(new ClickHandler() {
+			@Override
 			public void onClick(ClickEvent event) {
 				System.out.print("The following people are selected: ");
 				int count = 0;
@@ -167,10 +171,12 @@ public class TurnAdd extends AbstractNavigationView implements NavigationView {
 				System.out.println(count);
 				
 				turnService.findDriver(usernameList, comboBox.getValue(comboBox.getSelectedIndex()), new AsyncCallback<String>() {
+					@Override
 					public void onFailure(Throwable caught) {
 						// TODO
 					}
 
+					@Override
 					public void onSuccess(String result) {
 						
 					}

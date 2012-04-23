@@ -34,8 +34,7 @@ public class TurnServiceImpl extends RemoteServiceServlet implements
 	 * findDriver is called from another function located in a service call on
 	 * the client layer
 	 * 
-	 * @param a
-	 *            list of users
+	 * @param a list of users
 	 * @param category
 	 * @return a String which will represent the selected driver of Whose Turn
 	 */
@@ -62,7 +61,7 @@ public class TurnServiceImpl extends RemoteServiceServlet implements
 		 */
 
 		Query loggedUserQuery = pm.newQuery(
-				edu.unlv.cs.whoseturn.domain.User.class, "email = emailParam");
+				edu.unlv.cs.whoseturn.domain.User.class, "email == emailParam");
 		loggedUserQuery.declareParameters("String emailParam");
 		List<edu.unlv.cs.whoseturn.domain.User> loggedUserList = (List<edu.unlv.cs.whoseturn.domain.User>) loggedUserQuery
 				.execute(user.getEmail());
@@ -104,16 +103,16 @@ public class TurnServiceImpl extends RemoteServiceServlet implements
 		 * strategy
 		 */
 		switch (strategy.getStrategyId()) {
-		case 0:
+		case 1:
 			driver = leastRecentlyGone(userList, category);
 			break;
-		case 1:
+		case 2:
 			driver = lowestRatio(userList, category);
 			break;
-		case 2:
+		case 3:
 			driver = chooseRandomUser(userList);
 			break;
-//		case 3:
+//		case 4:
 //			driver = lowestRatioWithPenalty(userList, category);
 		default:
 			driver = new edu.unlv.cs.whoseturn.domain.User();
@@ -128,12 +127,10 @@ public class TurnServiceImpl extends RemoteServiceServlet implements
 	 * they were selected/turnItems; the user with the least ratio will be
 	 * chosen to handle all driving responsibilities
 	 * 
-	 * @param a
-	 *            list of users, as well as a category are passed into the
+	 * @param a list of users, as well as a category are passed into the
 	 *            lowestRatio method to handle and retrieve the amount of times
 	 *            the user participated in such a category.
-	 * @param category
-	 *            will represent a drive, chips & salsa, or ice cream
+	 * @param category will represent a drive, chips & salsa, or ice cream
 	 * @return a User, which then will be used to access the a string
 	 *         representing the user name
 	 */
@@ -192,12 +189,10 @@ public class TurnServiceImpl extends RemoteServiceServlet implements
 	 * determine which of the users has the earliest of Dates once the for loop
 	 * terminates
 	 * 
-	 * @param a
-	 *            list of users, as well as a category are passed into the
-	 *            leastRecentlyGone method to handle and retrieve the amount of
-	 *            times the user participated in such a category.
-	 * @param category
-	 *            will represent a drive, chips & salsa, or ice cream
+	 * @param a list of users, as well as a category are passed into the
+	 *          leastRecentlyGone method to handle and retrieve the amount of
+	 *          times the user participated in such a category.
+	 * @param category will represent a drive, chips & salsa, or ice cream
 	 * @return a User, which then will be used to access the a string
 	 *         representing the user name
 	 */
@@ -254,8 +249,7 @@ public class TurnServiceImpl extends RemoteServiceServlet implements
 	 * integer value, which given a parameter of the the number of users will
 	 * choose a number in such 0 to n-1 range
 	 * 
-	 * @param a
-	 *            list of users
+	 * @param a list of users
 	 * @return a User at the arbitrarily generated index, which then will be
 	 *         used to access a string representing the user name
 	 */
